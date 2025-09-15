@@ -240,3 +240,44 @@ switch (diaSemana) {
 }
 
 // Ejercicio sugerido calculadora con switch
+
+let numero1 = parseInt(prompt("Ingrese el primer numero"));
+let operacion = prompt("Ingrese el tipo de operacion");
+let numero2 = parseInt(prompt("Ingrese el segundo numero"));
+
+const h1Resultado = document.getElementById("h1-prueba");
+
+if (Number.isInteger(numero1) && Number.isInteger(numero2)) {
+    switch (operacion) {
+        case "+":
+            resultadoSuma = numero1 + numero2;
+            h1Resultado.innerHTML = `El resultado de la suma es: ${resultadoSuma}`
+            break;
+        case "-":
+            resultadoResta = numero1 - numero2;
+            h1Resultado.innerHTML = `El resultado de la resta es: ${resultadoResta}`
+            break;
+        case "*":
+            resultadoMultiplicacion = numero1 * numero2;
+            h1Resultado.innerHTML = `El resultado de la multiplicacion es: ${resultadoMultiplicacion}`
+            break;
+        case "/":
+            resultadoDivision = numero1 / numero2;
+            h1Resultado.innerHTML = `El resultado de la division es: ${resultadoDivision}`
+            break;
+        case "%":
+            resultadoPorcentaje = numero1 % numero2;
+            h1Resultado.innerHTML = `El resultado del porcentaje es: ${resultadoPorcentaje}`
+            break;
+        case "":
+            resultadoPotencia = numero1 ** numero2;
+            h1Resultado.innerHTML = `El resultado de la potencia es: ${resultadoPotencia}`
+            break;
+        default :
+            h1Resultado.innerHTML = "Error: Operacion inexistente"
+            break;
+    }
+}
+else{
+    h1Resultado.innerHTML = "Error: ingresaste un valor que no era un numero"
+}
