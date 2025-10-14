@@ -3,6 +3,7 @@
 ================
 Funciones que se pasan como argumentos a otras funciones para ser ejecutadas despues */
 
+
 // Ejemplo 1 -> Callback
 function procesarDatos(datos, callback) {
     console.log("Procesando datos..."); // Procesando datos...
@@ -16,9 +17,12 @@ procesarDatos("hola mundo", (res) => {
     console.log(`Resultado: ${res}`); // Resultado: HOLA MUNDO
 });
 
+
+
 /* Un callback es una funcion que se pasa como argumento a otra funcion y que se ejecuta despues de que algo haya ocurrido. Es como decirle a una funcion:
 
     "Cuando termines de hacer tu trabajo, llamás a esta otra función"
+
 
 Para que se usan los callbacks?
 
@@ -40,8 +44,7 @@ function procesarUsuario(nombre, callback) {
 
 procesarUsuario("Pedro", saludar); // Hola, Pedro
 
-/* 
-Que pasó acá?
+/* Que pasó acá?
 
 1. saludar es una funcion que saluda a alguien
 
@@ -49,6 +52,7 @@ Que pasó acá?
 
 3. Cuando termina de procesar el nombre, llama a saludar(nombre)
 */
+
 
 // Ejemplo 3 -> Callback
 console.log("Inicio");
@@ -60,6 +64,7 @@ setTimeout(() => {
 
 console.log("Fin");
 
+
 /* En resumen:
 
     - Callback: Una funcion que se pasa como argumento a otra funcion
@@ -67,6 +72,8 @@ console.log("Fin");
     - Uso: Ejecutar codigo despues de una accion o de forma personalizada
 
     - Ejemplos: setTimeout, addEventListener, funciones que reciben otras funciones
+
+
 
 ===================================================
     Caracteristicas principales de los callbacks
@@ -92,6 +99,7 @@ function ejecutarCallback(callback) {
 }
 
 ejecutarCallback(miCallback); // Callback ejecutado
+
 
 // 2. Sincronia vs Asincronia
 
@@ -126,23 +134,24 @@ procesoAsincrono(function() {
     console.log("Proceso asincrono completado");
 });
 
+
 console.log("Esto se ejecuta inmediatamente");
+
+
 
 ////////////////////////////////////////
 // Casos de uso comunes de callbacks //
-//////////////////////////////////////
 
-/////////////////////////////////
-// 1. Temporizadores (timers) //
-///////////////////////////////
 
+/////////////////////
+// 1. Temporizadores (timers)
 setTimeout(function() { // setTimeout se ejecuta una sola vez
     console.log("Esto se va a ejecutar dentro de 3 segundos");
 }, 3000);
 
+
 // setInterval es un setTimeout que se repite
 // setInterval se ejecuta a intervalos (la funcion se repite cada x segundos)
-
 let contador = 0;
 const intervalo = setInterval(function() {
     contador++;
@@ -153,20 +162,23 @@ const intervalo = setInterval(function() {
     }
 }, 1000);
 
-/////////////////////////
-// 2. Eventos del DOM //
-///////////////////////
 
+
+
+
+/////////////////////
+// 2. Eventos del DOM
 let boton = document.getElementById("miBoton");
 
 boton.addEventListener("click", function(event) {
     console.log(`Boton clickeado`, event.target);
 });
 
-////////////////////////////////
-// 3. Operaciones con arrays //
-//////////////////////////////
 
+
+
+/////////////////////
+// 3. Operaciones con arrays
 const numeross = [1, 2, 3, 4, 5];
 
 // forEach
@@ -183,6 +195,7 @@ numeross.forEach(function(num, index, arr) {
 
 console.log(numeross);
 
+
 // map
 const duplicados = numeross.map(function(num) {
     return num * 2;
@@ -190,16 +203,20 @@ const duplicados = numeross.map(function(num) {
 
 console.log(duplicados);
 
-////////////////////////
-// 4. Peticiones HTTP//
-//////////////////////
+
+
+
+/////////////////////
+// 4. Peticiones HTTP
 
 // Ver ejemplo de peticion con fetch mas abajo
 
-///////////////////////////////////////////////////////////////////////////
-// 5. Lectura de Archivos (Node.js) -> Lo vemos mas adelante en Node.js //
-/////////////////////////////////////////////////////////////////////////
 
+
+
+
+/////////////////////
+// 5. Lectura de Archivos (Node.js) -> Lo vemos mas adelante en Node.js
 /*
 const fs = require("fs");
 
@@ -220,10 +237,12 @@ Ventajas de los callbacks:
     - Universalidad: Compatible con todos los navegadores
     - Flexibilidad: Permiten crear codigo reutilizable
 
+
 Desventajas de los callbacks:
     - Callback Hell: Anidamiento excesivo que dificulta la lectura
     - Manejo de errores: Complicado con callbacks anidados
     - Flujo de control: Dificil de seguir con operaciones complejas
+
 
 Alternativas modernas:
 
@@ -231,8 +250,12 @@ Alternativas modernas:
 - Async/await: Sintaxis mas limpia y legible
 */
 
-/*
-=========================================
+
+
+
+
+
+/* ======================================
     Diferencias entre HOF y Callbacks
 =========================================
 
@@ -245,11 +268,13 @@ function procesarUsuario(nombre, callback) {
     callback(nombre);
 }
 
+
 // El callback aca es -> function(n) { console.log(`Bienvenido ${n}`); }
 
 procesarUsuario("Mateo", function(n) {
     console.log(`Bienvenido ${n}`);
 });
+
 
 /* 2. High Order Function: Es una funcion que cumple AL MENOS UNA de estas dos condiciones:
 
@@ -262,6 +287,8 @@ procesarUsuario("Mateo", function(n) {
 // Caso 1: Recibe una funcion
 const cuadradoss = numeross.map(n => n * n); // map es una HOF porque recibe un callback como argumento
 console.log(cuadradoss);
+
+
 
 // Caso 2: Devuelve una funcion
 function multiplicador(factor) {
@@ -298,9 +325,15 @@ console.log(duplicar(5)); // 10
 - Estan relacionadas pero no son equivalentes: Un callback es usando dentro de una HOF, pero no todas las HOF usan callbacks explicitamente porque pueden devolver funciones en lugar de recibirlas
 */
 
-/*
-===========================================================
-      High Order Functions o Funciones de Alto Nivel
+
+
+
+
+
+
+
+/*=========================================================
+    High Order Functions o Funciones de Alto Nivel
 ===========================================================
 
 Una funcion de orden superior es una funcion que puede hacer al menos una de estas dos cosas
@@ -310,10 +343,12 @@ Una funcion de orden superior es una funcion que puede hacer al menos una de est
 
 En JavaScript las funciones son tratadas como "ciudadanos de primera clase" o first class citizens, esto significa que las funciones pueden ser asignadas a varaibels, pasadas como argumentos o retornadas desde otras funciones
 
+
 Que nos permiten las High Order Functions
 - Abstraccion: Permiten escribir codigo mas abstracto y reutilizable
 - Composicion: Facilitan combinar funcionalidades pequeñas en logicas mas complejas
 */
+
 
 // Ej 1. Aceptando una funcion como argumento
 function funcionAltoNivel(callback) {
@@ -330,6 +365,7 @@ function funcionCallback() {
 
 funcionAltoNivel(funcionCallback);
 
+
 // Ej 2. Funcion de alto nivel que devuelve una funcion
 function crearSaludo(saludo) {
 
@@ -339,18 +375,21 @@ function crearSaludo(saludo) {
     }
 }
 
+
 // Creamos una funcion saludo
 const saludaHola = crearSaludo("Hola");
 saludaHola("Hernan");
+
 
 // Creamos una funcion despedida
 const saludaDespedida = crearSaludo("Adios");
 console.log(saludaDespedida); // ƒ (nombre) { console.log(`${saludo}, ${nombre}`); }
 saludaDespedida("Damian");
 
+
+
 ////////////////////////////////
 // HOF comunes en JavaScript //
-//////////////////////////////
 
 // forEach: Recorre todos los elementos de un array y ejecuta una funcion sobre cada uno
 
@@ -366,8 +405,7 @@ const nums = [1, 2, 3];
 const alCuadrado = numeros.map(n => n ** 2);
 console.log(alCuadrado);
 
-/* 
-=======================
+/* ====================
     Craneando el map
 =======================
 
@@ -386,11 +424,13 @@ en nuestro ejemplo, el callback es esto
 es una funcion flecha con parametro n
     n => n * n
 
+
 es el equivalente a escribirlo con function
 
 function (n) {
     return n * n;
 }
+
 
 El callback en nuestro ejemplo es la funcion flecha
     n => n * n
@@ -418,10 +458,12 @@ function mapa (array, callback) {
 - Iteracion 2 -> callback(2) -> 2 * 2 = 4
 */
 
+
 // filter: Crea un nuevo array con los elementos que cumplen una condicion
 // const numeros = [1, 2, 3, 4];
 const pares = numeros.filter(n => n % 2 === 0);
 console.log(pares);
+
 
 // reduce: Acumula los valores del array en un solo valor, segun una funcion reductora
 
@@ -433,9 +475,12 @@ const frutas = ["manzana", "banana", "cereza"];
 const frutaEncontrada = frutas.find(f => f.startsWith("b"));
 console.log(frutaEncontrada);
 
-/* 
-===========================
-       Destructuring
+
+
+
+
+/* ========================
+    Destructuring
 ===========================
 El destructuring es una herramienta moderna que nos permite escribir codigo mas limpio, mas corto y mas claro
 Es una forma de "descomponer" estructuras de datos como arrays y objetos en variables individuales, sin necesidad de acceder manualmente a cada elemento o propiedad
@@ -459,10 +504,9 @@ const persona = { nombre: "Anibal", edad: 40 };
 let nom = persona.nombre;
 let ed = persona.edad;
 
+
 ////////////////////////
 // Con destructuring //
-//////////////////////
-
 let [primero, segundo] = numerosss;
 console.log(primero, segundo);
 
@@ -481,17 +525,24 @@ function saludar({nombre, edad}) {
 
 saludar(alumno); // Hola Emiliano, tenes 35 años
 
+
 // Destructuring de arrays con valores omitidos
 let [prim, ,terc] = [10, 20, 30];
 console.log(prim, terc); // 10 30
+
 
 // Rest operator con destructuring
 let [a, ...resto] = [1, 2, 3, 4];
 console.log(a); // 1
 console.log(resto); // [2, 3, 4]
 
+
 let { nombr, ...otros } = { nombr: "Gabi", edad: 25, pais: "Argentina"};
 console.log(otros); // {edad: 25, pais: 'Argentina'}
+
+
+
+
 
 /* ========================
     Spread Operator
@@ -513,6 +564,7 @@ let original = [1, 2, 3];
 let copia = [...original];
 console.log(copia); // [1, 2, 3]
 
+
 // Concatenar arrays: Mucho mas eficiente que concat(), mejor rendimiento en motores modernos
 let arr1 = [1, 2];
 let arr2 = [3, 4];
@@ -520,10 +572,12 @@ let arr2 = [3, 4];
 let combinado = [...arr1, ...arr2]; 
 console.log(combinado); // [1, 2, 3, 4]
 
+
 // Convierte strings en arrays sin usar split()
 let string = "Holis";
 let caracteres = [...string];
 console.log(caracteres); // ['H', 'o', 'l', 'i', 's']
+
 
 // Combinacion de objetos
 let defaults = { tema: "oscuro", fontSize: 14 };
@@ -531,10 +585,14 @@ let configUser = { fontSize: 18 };
 let configFinal = {...defaults, ...configUser};
 console.log(configFinal); // {tema: 'oscuro', fontSize: 18}
 
+
+
 // Spread operator en funciones, pasando argumentos desde un array
 function sum (a, b, c, d) { return a + b + c + d};
 let numsRandom = [1, 2, 3, 4];
 console.log(sum(...numsRandom));
+
+
 
 // Recogemos argumentos restantes (rest parameters)
 function logArgs(first, ...rest) {
@@ -544,10 +602,15 @@ function logArgs(first, ...rest) {
 
 logArgs("a", "b", "c");
 
-/*
-=========================
+
+
+
+
+
+
+/*======================
     Funciones anidadas
-=========================
+========================
 Son simplemente funciones definidas dentro de otras funciones.
 Es decir, una funcion interna que vive en el scope de una funcion externa
 
@@ -569,7 +632,6 @@ Consideraciones:
     - Demasiadas funciones anidadas pueden dificultar la legibilidad si no estan bien organizadas
 
 */
-
 function saludar(nombre) {
 
     function construirMensaje() {
@@ -595,6 +657,8 @@ function externa() {
 
 externa(); // Hola desde fuera
 
+
+
 // Ejemplo de procesamiento de texto
 // 1. Organizacion de codigo: En vez de escribir una gran funcion, se puedne definir sub-funciones internas para modularizar la logica
 function procesarTexto(texto) {
@@ -615,9 +679,9 @@ function procesarTexto(texto) {
 console.log("Numero palabras:");
 console.log(procesarTexto(" Holiiiii        QUE ONDI los pibardos de la 334          "));
 
-/*
-======================
-       Closures
+
+/*====================
+    Closures
 ======================
 Una closure es una funcion que recuerda el entorno (scope) en el que fue creada, incluso despues de que ese entorno haya finalizado su ejecucion
 
@@ -653,11 +717,16 @@ console.log(contar()); // 5
 
 - Cada vez que llamamos a contar(), estamos invocando la misma closure que mantiene su propio estado interno
 
+
 Por que son utiles las closures?
 
     - Permiten recordar valores sin usar variables globales
     - Crear funciones privadas
     - Hacer el codigo mas limpio y modular*/
+
+
+
+
 
 /* =======================
     Callback Hell
@@ -679,11 +748,13 @@ Que hace setTimeout?
     console.log(n);
 });
 
+
 // Callbacks asincronicos: Se ejecutan despues de un tiempo o de que termine una operacion externa. Son fundamentales en la programacion asincronica
 
 setTimeout(() => {
     console.log("Tarea asincronica completada")
 }, 1000);
+
 
 /*
 JavaScript es un lenguaje orientado a eventos y asincronico
@@ -692,11 +763,13 @@ JavaScript fue diseñado para ejecutarse en el navegador, donde muchas operacion
 
 No queremos que el programa se detenga esperando estas tareas, en su lugar, registramos una funcion callback que se ejecutara mas adelante, cuando la tarea termine
 
+
 Ventajas de los callbacks
 
 - Permiten la modularidad del codigo (pasar funciones como argumentos)
 - Permiten CONTROLAR EL FLUJO en entornos asincronicos
 - Son la BASE DE ABSTRACCIONES MAS COMPLEJAS como promesas y async/await
+
 
 Problemas comunes: Callback Hell
 
@@ -731,6 +804,10 @@ setTimeout(() => {
 
 }, 1000);
 
+
+
+
+
 /* // Como solucionamos el maldito Callback Hell?
 
 - Callback hell: Muchas funciones anidadas que hacen el codigo ilegible
@@ -746,6 +823,7 @@ hacerAlgo()
     .then(() => console.log("Listo!"))
     .catch(error => console.error(error));
 */
+
 
 /* Solucion 2: Usando async/await (mas moderno y legible)
 
@@ -768,9 +846,9 @@ async function ejecutarTareas() {
     }
 } */
 
+
 ///////////////
 // Promesas //
-/////////////
 
 // Hacemos una solicitud a esta URL para traer todo el choclo de datos
 fetch("https://jsonplaceholder.typicode.com/users")
@@ -786,7 +864,6 @@ fetch("https://jsonplaceholder.typicode.com/users")
 
 //////////////////
 // Async/Await //
-////////////////
 
 async function obtenerDatos() {
     try {
@@ -805,6 +882,119 @@ async function obtenerDatos() {
     }
 }
 
-obtenerDatos();
+// obtenerDatos();
 
-// TODO ver Web APIs
+
+
+
+/*=========================
+    Web APIs
+===========================
+
+- API (Aplication Programming Interface) o Interfaz de Programacion de Aplicaciones
+
+- Una API es un conjunto de funciones y herramientas que podemos usar para interactuar con algo, sea el navegador, el servidor o una libreria
+
+Una Web API
+En el contexto del navegador (Firefox, Chrome, etc), una Web API es una funcion o conjunto de funciones que el navegador nos proporciona para que las usemos con JavaScript
+
+JavaScript como lenguaje de programacion es muy basico. Pero cuando se ejecuta en un navegador, puede acceder a funcionalidades especiales que el navegador le proporciona:
+
+    - Manipular el DOM (document.getElementById)
+    - Temporizadores (setTimeout a setInterval)
+    - Hacer peticiones HTTP (fetch)
+    - Trabajar con audio, video, GPS, etc
+
+Por que decimos que fetch es una API?
+- fetch no es parte del lenguaje JavaScript puro
+- Es una funcion que el navegador le da a JavaScript para que pueda hacer peticiones a servidores web
+- Por eso decimos que es una Web API que el navegador expone
+
+
+- JavaScript es el lenguaje
+- Las Web APIs son funciones extra que el navegador le presta a JavaScript para hacer cosas utiles
+- JavaScript usa estas APIs pero no son parte del lenguaje en si, las usa pero no las define
+
+
+Resumen:
+- API:      Conjunto de funciones para interactuar con algo
+- Web API:  Funciones que el navegador le ofrece a JavaScript
+- fetch:    Web API para hacer peticiones HTTP
+- setTimeout: Web API para ejecutar codigo con demora
+- JavaScript: Usa Web APIs pero no las define (las define el navegador)
+
+
+Las Web APIs son herramientas que el navegador le da a JavaScript para interactuar con el entorno: HTML, red, audio, video, dispositivos, almacenamiento, etc
+
+Tipos de Web APIs comunes
+
+1. APIs del DOM (Document Object Model)
+- Permiten acceder y modificar el HTML y CSS de la pagina
+- Manipulacion de elementos, eventos, clases, estilos,etc
+
+    - document.querySelector()
+    - document.createElement()
+    - document.addEventListener()
+    - classList.add()
+
+
+2. APIs de Red
+- Permiten comunicarnos con servidores o cargar recursos
+- Peticiones HTTP, chats, notificaciones en tiempo real
+
+    -  fetch() -> Para realizar solicitudes HTTP
+    - XMLHttpRequest -> Version mas antigua del fetch
+    - WebSocket -> Comunicacion en tiempo real (chats)
+    - EventSource -> Eventos Server-Sent (actualizaciones en tiempo real)
+
+
+3. APIs de almacenamiento
+- Guardar informacion en el navegador
+- Guardar preferencias, datos de sesion, apps sin conexion, ble
+
+    - localStorage()
+    - sessionStorage()
+    - Cookies (mediante document.cookie)
+    - IndexedDB*
+
+    * Qué es IndexedDB
+    https://es.javascript.info/indexeddb
+
+    IndexedDB es una API de JavaScript que permite el almacenamiento de grandes cantidades de datos estructurados en el navegador del usuario, funcionando como una base de datos NoSQL orientada a objetos  A diferencia de localStorage, que está limitado a pequeñas cantidades de datos, IndexedDB está diseñado para manejar volúmenes significativos de información, incluyendo archivos y blobs, y permite búsquedas de alto rendimiento mediante índices  Es una tecnología transaccional, lo que garantiza la integridad y consistencia de los datos durante operaciones como inserciones, actualizaciones y eliminaciones  Además, sigue la política de mismo origen, lo que significa que solo las páginas web del mismo dominio pueden acceder a los datos almacenados en una base de datos específica 
+
+
+4. Timers o temporizadores
+- Permiten ejecutar funciones luego de un cierto tiempo
+- Retrasos, animaciones, poling
+
+    - setTimeout()
+    - setInterval()
+    - clearTimeout() y clearInterval()
+
+
+5. APIs de Dispositivos y Multimedia
+- Interaccion con hardware o medios
+- Apps, mobiles, camara, permisos, grabaciones, notificaciones
+
+    - navigator.geolocation -> GPS
+    - MediaDevices.getUserMedia() -> Microfono y camara
+    - Notification -> Notificaciones del sistema
+    - Battery API, Clipboard API -> Para interactuar con la bateria, con el sistema de copiar-pegar
+
+
+6. APIs de Interfaz Grafica
+- Controlan animaciones, graficos y visualizacion
+- Juegos, visualizaciones, graficos dinamicos, etc
+
+    - Canvas API
+    - WebGL -> https://es.wikipedia.org/wiki/WebGL
+    - Fullscreen API
+    - Screen Orientation API
+
+
+En resumen:
+
+- JavaScript puro es simple
+- Pero el navegador le da superpoderes con las Web APIs
+- Estas APIs permiten que JavaScript haga cosas reales, como hablar con servidores, manipular la pagina, guardar datos, usar la camara, etc
+*/
